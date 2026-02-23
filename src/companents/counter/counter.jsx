@@ -9,6 +9,12 @@ const Counter = () => {
     const [incVal, setIncVal] = useState(0)
     const [decVal, setDecVal] = useState(0)
     const [logs, setLogs] = useState([])
+    const [showLogs, setShowLogs] = useState(false)
+
+    const deleteLog = (id) => {
+        setLogs((prevLogs)=> prevLogs.filter((log)=> log.id !== id))
+        // console.log(logs)
+    }
 
 
     const handleOperation = (event) => {
@@ -33,7 +39,7 @@ const Counter = () => {
         }
         setCounter(newVal)
         const newLog = {
-            id: Math.random,
+            id: Math.random(),
             value: `Previous Value = ${oldVal}, Value ${operator === "+" ? "Added" : "Subtracted"
                 } = ${operator === "+" ? incVal : decVal}, New Value = ${newVal}`,
         }
@@ -73,9 +79,19 @@ const Counter = () => {
             </div>
             {logs.length >= 1 && (
                 <div className="logs">
-                    <div className="logs_container">
-                        <Logs logsData={logs}/>
-                    </div>
+                    <button
+                        className="button button_info"
+                        onClick={() => setShowLogs(!showLogs)}
+                        style={{
+                            backgroundColor: showLogs ? "black" : "#e7e7e7",
+                            color: showLogs ? "#e7e7e7" : "black"
+                        }}>
+                        {showLogs ? "Hide" : "Show"} Logs
+                    </button>
+                    {showLogs && (
+                        <div className="logs_container">
+                            <Logs logsData={logs} deleteLog={(id) => deleteLog(id)} />
+                        </div>)}
                 </div>
             )}
         </div>
