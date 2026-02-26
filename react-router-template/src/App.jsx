@@ -3,8 +3,24 @@ import "./App.css";
 
 import Home from "./components/Home/Home.jsx";
 import About from "./components/About/about.jsx";
+import Button from "./components/Button/Button.jsx"
+import Products from "./components/Products/Products.jsx"
+import { useState } from "react";
 
 const App = () => {
+
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleLogin = () => {
+    setIsLoading(true)
+    //call to handle Login
+    setTimeout(() => {
+      setLoggedIn(!loggedIn)
+      setIsLoading(false)
+    }, 2000)
+  }
+
   return (
     <div data-testid="App" className="App">
       <nav data-testid="main_nav">
@@ -18,11 +34,19 @@ const App = () => {
         <NavLink data-testid="Product_Link" to="/products">
           Products
         </NavLink>
+        <Button value={loggedIn}
+          isLoading={isLoading}
+          displayTrue={"Logout"}
+          displayFalse={"Login"}
+          handleLogin={handleLogin}
+        />
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About/>} />
-        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/about" element={<About />} />
+        {loggedIn &&
+          <Route path="/products" element={<Products isUserLoggedIn={loggedIn} isLoading={isLoading} />} />
+        }
       </Routes>
     </div>
   );
