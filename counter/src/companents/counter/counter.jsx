@@ -12,7 +12,7 @@ const Counter = () => {
     const [showLogs, setShowLogs] = useState(false)
 
     const deleteLog = (id) => {
-        setLogs((prevLogs)=> prevLogs.filter((log)=> log.id !== id))
+        setLogs((prevLogs) => prevLogs.filter((log) => log.id !== id))
         // console.log(logs)
     }
 
@@ -48,44 +48,49 @@ const Counter = () => {
     }
 
     return (
-        <div className="main">
+        <div className="main" testid="counter-component">
             <div>
                 <h1>COUNTER</h1>
             </div>
             <div>
-                <h3> value of counter: {counter}</h3>
+                <h3 testid="counter-value">value of counter: {counter}</h3>
             </div>
             <div className="buttons">
                 <div className="action_section">
                     <form action="">
                         <input type="number"
+                            testid="input_inc"
                             value={incVal}
                             placeholder="0"
                             id="value_inc"
                             onChange={(event) => handleOperation(event)} />
                     </form>
-                    <button className="button button_inc" onClick={() => handleCounter("+")}>Increase</button>
+                    <button className="button button_inc" onClick={() => handleCounter("+")}
+                        testid="btn_inc">Increase</button>
                 </div>
                 <div className="action_section">
                     <form action="">
                         <input type="number"
                             value={decVal}
+                            testid="input_dec"
                             placeholder="0"
                             id="value_dec"
                             onChange={(event) => handleOperation(event)} />
                     </form>
-                    <button className="button button_dec" onClick={() => handleCounter("-")}>Decrease</button>
+                    <button className="button button_dec" onClick={() => handleCounter("-")}
+                        testid="btn-dec">Decrease</button>
                 </div>
             </div>
             {logs.length >= 1 && (
-                <div className="logs">
+                <div className="logs" testid="logs">
                     <button
                         className="button button_info"
                         onClick={() => setShowLogs(!showLogs)}
                         style={{
                             backgroundColor: showLogs ? "black" : "#e7e7e7",
                             color: showLogs ? "#e7e7e7" : "black"
-                        }}>
+                        }}
+                        testid="btn-show-logs">
                         {showLogs ? "Hide" : "Show"} Logs
                     </button>
                     {showLogs && (
